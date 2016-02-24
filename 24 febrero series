@@ -1,0 +1,33 @@
+install.packages("foreign")
+library(foreign)
+ocemp<-read.dbf("C:\\Users\\SALA-C21\\Desktop\\COE1T215.dbf")
+sd1<-subset(ocemp, ENT == 31)
+install.packages('questionr')
+require (questionr)
+table (sd1$P3L)
+str(sd1)
+sd1$P3L <- ordered(sd1$P3L, levels = c("01","02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "99"), labels = c("1 persona", "2 a 5 personas", "6 a 10 personas", "11 a 15 personas", "16 a 20 personas", "21 a 30 personas", "31 a 50 personas", "51 a 100 personas", "101 a 250 personas", "251 a 500 personas", "501 y más personas", "No sabe"))
+table (sd1$P5)
+sd1$P5 <- ordered(sd1$P5, levels = c("1","2", "3", "9"), labels = c("Si", "No trabajo la semana pasada", "no se encontro en esa situación", "no sabe"))
+sd1$P2E <- ordered(sd1$P2E, levels = c("1","2", "3", "4","5", "6", "9"), labels = c("una persona temporalmente ausente de su actividad u oficio", "pensionado o jubilado de su empleo", "estudiante", "una persona que se dedica a los quehaceres de su", "una persona con alguna limitación física o mental que le impide trabajar por el resto de su vida?", "otra condición", "no sabe"))
+table (sd1$P2E)
+c1<-wtd.table (sd1$P3L, weights = sd1$FAC) 
+c1
+tablaexp = data.frame (cbind(SEX,P3L))
+installed.packages("car")
+library (car)
+
+table(P3L)
+attach(sd1) ##se tiene que hacer attach para que se guarde la etiqueta de todas las variables
+View(sd1)
+table(P3L, P5) ###PARA HACER UNA TABLA CONSIDERANDO MAS DOS VARIABLES
+table(sd1$SEX)
+
+sd1$P1 <- ordered(sd1$P1, levels = c("1","2"), labels = c("Si trabaja", "No trabaja"))
+table (sd1$P1)
+table(P3L, P1)
+c2<-wtd.table (sd1$P5, weights = sd1$FAC)
+c3<-wtd.table (sd1$P2E, weights = sd1$FAC)
+c2
+c3
+c4<-wtd.table (sd1$P5, weights = sd1$FAC)
